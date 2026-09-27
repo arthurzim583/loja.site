@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kaiju Collect</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#05070b;
+    color:white;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:82px;
+
+    background:rgba(3,6,10,.97);
+
+    border-bottom:1px solid #123b63;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 55px;
+
+    z-index:1000;
+
+    backdrop-filter:blur(12px);
+}
+
+
+/* LOGO */
+
+.logo-link{
+
+    display:flex;
+    align-items:center;
+}
+
+.logo{
+
+    width:120px;
+    height:70px;
+
+    object-fit:contain;
+
+    transition:.3s;
+}
+
+.logo:hover{
+
+    transform:scale(1.05);
+}
+
+
+/* MENU */
+
+nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:32px;
+
+    margin-left:auto;
+}
+
+nav a{
+
+    color:#dceeff;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+nav a:hover{
+
+    color:#00aaff;
+
+    text-shadow:
+        0 0 12px #008cff;
+}
+
+
+/* =====================================================
+   DROPDOWN
+===================================================== */
+
+.dropdown{
+
+    position:relative;
+}
+
+.dropdown-menu{
+
+    position:absolute;
+
+    top:30px;
+    left:-20px;
+
+    width:210px;
+
+    background:#070c13;
+
+    border:1px solid #123b63;
+
+    padding:8px 0;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:.25s;
+}
+
+.dropdown:hover .dropdown-menu{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+}
+
+.dropdown-menu a{
+
+    display:block;
+
+    padding:12px 18px;
+
+    font-size:14px;
+}
+
+.dropdown-menu a:hover{
+
+    background:#0b2943;
+}
+
+
+/* =====================================================
+   CARRINHO NAVBAR
+===================================================== */
+
+.cart-button{
+
+    margin-left:30px;
+
+    padding:10px 17px;
+
+    border:1px solid #008cff;
+
+    background:transparent;
+
+    color:white;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.cart-button:hover{
+
+    background:#008cff;
+
+    box-shadow:
+        0 0 20px rgba(0,140,255,.5);
+}
+
+#cart-count{
+
+    background:#008cff;
+
+    border-radius:50%;
+
+    padding:3px 7px;
+
+    margin-left:5px;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    min-height:720px;
+
+    padding:150px 8% 80px;
+
+    display:flex;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 75% 50%,
+            rgba(0,119,255,.20),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            120deg,
+            #030509,
+            #07111d,
+            #020406
+        );
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    right:-250px;
+    top:80px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(0,140,255,.15);
+
+    box-shadow:
+        0 0 100px rgba(0,120,255,.08);
+}
+
+.hero-content{
+
+    max-width:700px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.hero-small{
+
+    color:#008cff;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    letter-spacing:4px;
+
+    margin-bottom:20px;
+}
+
+.hero h1{
+
+    font-size:72px;
+
+    line-height:1;
+
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+
+    color:#008cff;
+
+    text-shadow:
+        0 0 20px rgba(0,140,255,.5);
+}
+
+.hero p{
+
+    color:#aebdcb;
+
+    font-size:18px;
+
+    line-height:1.7;
+
+    max-width:650px;
+
+    margin-bottom:35px;
+}
+
+.hero-button{
+
+    display:inline-block;
+
+    padding:15px 30px;
+
+    background:#008cff;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    border-radius:4px;
+
+    transition:.3s;
+}
+
+.hero-button:hover{
+
+    background:#00aaff;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 0 30px rgba(0,170,255,.6);
+}
+
+
+/* =====================================================
+   SEÇÕES
+===================================================== */
+
+.section{
+
+    padding:90px 8%;
+}
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:50px;
+}
+
+.section-title h2{
+
+    font-size:38px;
+
+    margin-bottom:12px;
+}
+
+.section-title p{
+
+    color:#8090a0;
+}
+
+
+/* =====================================================
+   MARCAS
+===================================================== */
+
+.categories{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:18px;
+}
+
+.category{
+
+    height:150px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0a111a,
+            #05080d
+        );
+
+    border:1px solid #142c44;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    border-radius:6px;
+
+    transition:.3s;
+
+    text-decoration:none;
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.category::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:100%;
+    height:3px;
+
+    top:0;
+    left:0;
+
+    background:#008cff;
+
+    transform:scaleX(0);
+
+    transition:.3s;
+}
+
+.category:hover{
+
+    transform:translateY(-7px);
+
+    border-color:#008cff;
+
+    box-shadow:
+        0 10px 30px rgba(0,100,255,.2);
+}
+
+.category:hover::before{
+
+    transform:scaleX(1);
+}
+
+.category h3{
+
+    font-size:19px;
+}
+
+
+/* =====================================================
+   PRODUTOS
+===================================================== */
+
+.products{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:25px;
+}
+
+.product{
+
+    background:#090d13;
+
+    border:1px solid #17283a;
+
+    border-radius:6px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    cursor:pointer;
+}
+
+.product:hover{
+
+    transform:translateY(-6px);
+
+    border-color:#008cff;
+
+    box-shadow:
+        0 10px 30px rgba(0,120,255,.15);
+}
+
+.product-image{
+
+    height:300px;
+
+    background:
+        radial-gradient(
+            circle,
+            #11283e,
+            #06090e 70%
+        );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.product-image img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    transition:.4s;
+}
+
+.product:hover .product-image img{
+
+    transform:scale(1.05);
+}
+
+.product-info{
+
+    padding:20px;
+}
+
+.product-brand{
+
+    color:#008cff;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    margin-bottom:8px;
+}
+
+.product h3{
+
+    font-size:18px;
+
+    min-height:45px;
+
+    margin-bottom:12px;
+}
+
+.price{
+
+    font-size:21px;
+
+    font-weight:bold;
+}
+
+.buy-button{
+
+    width:100%;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    background:transparent;
+
+    border:1px solid #008cff;
+
+    color:#008cff;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.buy-button:hover{
+
+    background:#008cff;
+
+    color:white;
+}
+
+
+/* =====================================================
+   SOBRE
+===================================================== */
+
+.about{
+
+    background:
+        linear-gradient(
+            120deg,
+            #07101b,
+            #030609
+        );
+
+    border-top:1px solid #102a43;
+
+    border-bottom:1px solid #102a43;
+
+    text-align:center;
+}
+
+.about-content{
+
+    max-width:800px;
+
+    margin:auto;
+}
+
+.about h2{
+
+    font-size:38px;
+
+    margin-bottom:20px;
+}
+
+.about h2 span{
+
+    color:#008cff;
+}
+
+.about p{
+
+    color:#9caebe;
+
+    font-size:17px;
+
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   CARRINHO
+===================================================== */
+
+.cart-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    display:none;
+
+    justify-content:flex-end;
+
+    z-index:2000;
+}
+
+.cart-overlay.active{
+
+    display:flex;
+}
+
+.cart{
+
+    width:430px;
+
+    max-width:100%;
+
+    height:100%;
+
+    background:#070b11;
+
+    border-left:1px solid #123b63;
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.cart-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding-bottom:20px;
+
+    border-bottom:1px solid #17283a;
+}
+
+.cart-header button{
+
+    background:transparent;
+
+    border:none;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+#cart-items{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding-top:20px;
+}
+
+.empty-cart{
+
+    color:#718092;
+
+    text-align:center;
+
+    margin-top:40px;
+}
+
+.cart-item{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+    padding-bottom:15px;
+
+    border-bottom:1px solid #17283a;
+}
+
+.cart-item img{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:contain;
+
+    background:#0b1119;
+}
+
+.cart-item-info{
+
+    flex:1;
+}
+
+.cart-item-info h4{
+
+    font-size:14px;
+
+    margin-bottom:8px;
+}
+
+.cart-item-info p{
+
+    color:#008cff;
+
+    font-weight:bold;
+}
+
+.cart-item-info button{
+
+    background:#101a25;
+
+    color:white;
+
+    border:1px solid #20364c;
+
+    padding:3px 8px;
+
+    margin-top:8px;
+
+    cursor:pointer;
+}
+
+.remove-item{
+
+    background:transparent;
+
+    border:none;
+
+    color:#ff4d4d;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+.cart-footer{
+
+    border-top:1px solid #17283a;
+
+    padding-top:20px;
+}
+
+.cart-total{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+
+    font-size:18px;
+}
+
+.cart-total strong{
+
+    color:#008cff;
+}
+
+.checkout-button{
+
+    width:100%;
+
+    padding:15px;
+
+    background:#008cff;
+
+    color:white;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    padding:35px 8%;
+
+    background:#020305;
+
+    border-top:1px solid #102033;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#657384;
+
+    font-size:14px;
+}
+
+footer span{
+
+    color:#008cff;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media(max-width:1100px){
+
+    .products{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .categories{
+
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+}
+
+
+@media(max-width:800px){
+
+    header{
+
+        padding:0 20px;
+    }
+
+    nav{
+
+        display:none;
+    }
+
+    .cart-button{
+
+        margin-left:auto;
+    }
+
+    .hero{
+
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+    .hero h1{
+
+        font-size:52px;
+    }
+
+    .categories{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:550px){
+
+    .logo{
+
+        width:100px;
+    }
+
+    .hero h1{
+
+        font-size:42px;
+    }
+
+    .categories,
+    .products{
+
+        grid-template-columns:1fr;
+    }
+
+    .section{
+
+        padding:70px 20px;
+    }
+
+    footer{
+
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header>
+
+<a
+href="index.html"
+class="logo-link">
+
+<img
+src="images/logo.png"
+alt="Kaiju Collect"
+class="logo">
+
+</a>
+
+
+<nav>
+
+<a href="index.html">
+Início
+</a>
+
+
+<div class="dropdown">
+
+<a href="#">
+Marcas ▾
+</a>
+
+
+<div class="dropdown-menu">
+
+<a href="#">
+Hot Toys
+</a>
+
+<a href="#">
+Bandai
+</a>
+
+<a href="#">
+NECA
+</a>
+
+<a href="#">
+McFarlane Toys
+</a>
+
+<a href="#">
+Mezco
+</a>
+
+</div>
+
+</div>
+
+
+<a href="#destaques">
+Destaques
+</a>
+
+
+<a href="#sobre">
+Sobre
+</a>
+
+</nav>
+
+
+<button
+class="cart-button"
+onclick="openCart()">
+
+🛒 Carrinho
+
+<span id="cart-count">
+0
+</span>
+
+</button>
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="hero-small">
+
+KAIJU COLLECT
+
+</div>
+
+
+<h1>
+
+<span>BEM-VINDO!</span>
+
+</h1>
+
+
+<p>
+
+Action figures, estátuas e
+colecionáveis das maiores
+franquias do cinema, games,
+anime e cultura pop.
+
+</p>
+
+
+<a
+href="#destaques"
+class="hero-button">
+
+VER ANÚNCIOS
+
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MARCAS
+===================================================== -->
+
+<section
+class="section"
+id="marcas">
+
+
+<div class="section-title">
+
+<h2>
+Explore por marca
+</h2>
+
+<p>
+Encontre figuras das maiores fabricantes.
+</p>
+
+</div>
+
+
+<div class="categories">
+
+
+<a href="#" class="category">
+
+<h3>
+Hot Toys
+</h3>
+
+</a>
+
+
+<a href="#" class="category">
+
+<h3>
+Bandai
+</h3>
+
+</a>
+
+
+<a href="#" class="category">
+
+<h3>
+NECA
+</h3>
+
+</a>
+
+
+<a href="#" class="category">
+
+<h3>
+McFarlane Toys
+</h3>
+
+</a>
+
+
+<a href="#" class="category">
+
+<h3>
+Mezco
+</h3>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DESTAQUES
+===================================================== -->
+
+<section
+class="section"
+id="destaques">
+
+
+<div class="section-title">
+
+<h2>
+Produtos em destaque
+</h2>
+
+<p>
+Clique em uma figure para visualizar o anúncio completo.
+</p>
+
+</div>
+
+
+<div class="products">
+
+
+<!-- SPIDER-MAN -->
+
+<div
+class="product"
+onclick="window.location.href='spiderman.html'">
+
+<div class="product-image">
+
+<img
+src="images/spiderman-1.jpg"
+alt="Spider-Man Brand New Day">
+
+</div>
+
+
+<div class="product-info">
+
+<div class="product-brand">
+
+HOT TOYS
+
+</div>
+
+
+<h3>
+
+Spider-Man —
+Brand New Day
+
+</h3>
+
+
+<div class="price">
+
+R$ 1.499,90
+
+</div>
+
+
+<button
+class="buy-button"
+onclick="event.stopPropagation(); addToCart(
+'Spider-Man — Brand New Day',
+1499.90,
+'images/spiderman-1.jpg'
+)">
+
+ADICIONAR AO CARRINHO
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- GODZILLA -->
+
+<div
+class="product">
+
+<div class="product-image">
+
+<img
+src="images/godzilla-1.jpg"
+alt="Godzilla Ultima">
+
+</div>
+
+
+<div class="product-info">
+
+<div class="product-brand">
+
+BANDAI /
+S.H.MONSTERARTS
+
+</div>
+
+
+<h3>
+
+Godzilla Ultima
+
+</h3>
+
+
+<div class="price">
+
+R$ 899,90
+
+</div>
+
+
+<button
+class="buy-button"
+onclick="event.stopPropagation(); addToCart(
+'Godzilla Ultima',
+899.90,
+'images/godzilla-1.jpg'
+)">
+
+ADICIONAR AO CARRINHO
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- PREDATOR -->
+
+<div
+class="product">
+
+<div class="product-image">
+
+<img
+src="images/predator-1.jpg"
+alt="Samurai Predator">
+
+</div>
+
+
+<div class="product-info">
+
+<div class="product-brand">
+
+NECA
+
+</div>
+
+
+<h3>
+
+Samurai Predator
+
+</h3>
+
+
+<div class="price">
+
+R$ 549,90
+
+</div>
+
+
+<button
+class="buy-button"
+onclick="event.stopPropagation(); addToCart(
+'Samurai Predator',
+549.90,
+'images/predator-1.jpg'
+)">
+
+ADICIONAR AO CARRINHO
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- TANJIRO -->
+
+<div
+class="product">
+
+<div class="product-image">
+
+<img
+src="images/tanjiro-1.jpg"
+alt="Tanjiro Kamado Infinity Castle">
+
+</div>
+
+
+<div class="product-info">
+
+<div class="product-brand">
+
+BANDAI /
+S.H.FIGUARTS
+
+</div>
+
+
+<h3>
+
+Tanjiro Kamado —
+Infinity Castle
+
+</h3>
+
+
+<div class="price">
+
+R$ 699,90
+
+</div>
+
+
+<button
+class="buy-button"
+onclick="event.stopPropagation(); addToCart(
+'Tanjiro Kamado — Infinity Castle',
+699.90,
+'images/tanjiro-1.jpg'
+)">
+
+ADICIONAR AO CARRINHO
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SOBRE
+===================================================== -->
+
+<section
+class="section about"
+id="sobre">
+
+
+<div class="about-content">
+
+
+<h2>
+
+Seu universo de
+<span>colecionáveis.</span>
+
+</h2>
+
+
+<p>
+
+Na Kaiju Collect você encontra
+action figures, estátuas e colecionáveis
+de grandes franquias do cinema,
+games, anime e cultura pop.
+
+De kaijus gigantes a super-heróis,
+predadores e personagens lendários,
+sempre existe uma nova peça para
+adicionar à sua coleção.
+
+</p>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CARRINHO
+===================================================== -->
+
+<div
+id="cart-overlay"
+class="cart-overlay">
+
+
+<div class="cart">
+
+
+<div class="cart-header">
+
+<h2>
+Seu carrinho
+</h2>
+
+
+<button onclick="closeCart()">
+✕
+</button>
+
+</div>
+
+
+<div id="cart-items">
+
+<p class="empty-cart">
+
+Seu carrinho está vazio.
+
+</p>
+
+</div>
+
+
+<div class="cart-footer">
+
+
+<div class="cart-total">
+
+<span>
+Total:
+</span>
+
+
+<strong id="cart-total">
+
+R$ 0,00
+
+</strong>
+
+</div>
+
+
+<button class="checkout-button">
+
+FINALIZAR COMPRA
+
+</button>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div>
+
+© 2026
+Kaiju<span>Collect</span>
+
+</div>
+
+
+<div>
+
+Colecione. Exiba. Domine.
+
+</div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   CARRINHO
+===================================================== */
+
+let cart =
+JSON.parse(
+localStorage.getItem("kaijuCart")
+) || [];
+
+
+
+/* =====================================================
+   SALVAR CARRINHO
+===================================================== */
+
+function saveCart(){
+
+localStorage.setItem(
+"kaijuCart",
+JSON.stringify(cart)
+);
+
+}
+
+
+
+/* =====================================================
+   ADICIONAR AO CARRINHO
+===================================================== */
+
+function addToCart(
+name,
+price,
+image
+){
+
+const existingProduct =
+cart.find(
+product =>
+product.name === name
+);
+
+
+if(existingProduct){
+
+existingProduct.quantity++;
+
+}else{
+
+cart.push({
+
+name:name,
+
+price:price,
+
+image:image,
+
+quantity:1
+
+});
+
+}
+
+
+saveCart();
+
+updateCart();
+
+openCart();
+
+}
+
+
+
+/* =====================================================
+   REMOVER
+===================================================== */
+
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+saveCart();
+
+updateCart();
+
+}
+
+
+
+/* =====================================================
+   AUMENTAR
+===================================================== */
+
+function increaseQuantity(index){
+
+cart[index].quantity++;
+
+saveCart();
+
+updateCart();
+
+}
+
+
+
+/* =====================================================
+   DIMINUIR
+===================================================== */
+
+function decreaseQuantity(index){
+
+if(
+cart[index].quantity > 1
+){
+
+cart[index].quantity--;
+
+}else{
+
+cart.splice(index,1);
+
+}
+
+
+saveCart();
+
+updateCart();
+
+}
+
+
+
+/* =====================================================
+   ATUALIZAR CARRINHO
+===================================================== */
+
+function updateCart(){
+
+const cartItems =
+document.getElementById(
+"cart-items"
+);
+
+const cartCount =
+document.getElementById(
+"cart-count"
+);
+
+const cartTotal =
+document.getElementById(
+"cart-total"
+);
+
+
+cartItems.innerHTML = "";
+
+
+let total = 0;
+
+let totalQuantity = 0;
+
+
+if(cart.length === 0){
+
+cartItems.innerHTML = `
+
+<p class="empty-cart">
+
+Seu carrinho está vazio.
+
+</p>
+
+`;
+
+}
+
+
+cart.forEach(
+(product,index) => {
+
+total +=
+product.price *
+product.quantity;
+
+totalQuantity +=
+product.quantity;
+
+
+const item =
+document.createElement(
+"div"
+);
+
+
+item.className =
+"cart-item";
+
+
+item.innerHTML = `
+
+<img
+src="${product.image}"
+alt="${product.name}"
+>
+
+
+<div class="cart-item-info">
+
+<h4>
+${product.name}
+</h4>
+
+
+<p>
+
+R$
+${product.price
+.toFixed(2)
+.replace(".", ",")}
+
+</p>
+
+
+<div>
+
+<button
+onclick="decreaseQuantity(${index})">
+
+−
+
+</button>
+
+
+${product.quantity}
+
+
+<button
+onclick="increaseQuantity(${index})">
+
++
+
+</button>
+
+</div>
+
+</div>
+
+
+<button
+class="remove-item"
+onclick="removeFromCart(${index})">
+
+✕
+
+</button>
+
+`;
+
+
+cartItems.appendChild(item);
+
+}
+);
+
+
+cartCount.textContent =
+totalQuantity;
+
+
+cartTotal.textContent =
+"R$ " +
+total
+.toFixed(2)
+.replace(".", ",");
+
+}
+
+
+
+/* =====================================================
+   ABRIR CARRINHO
+===================================================== */
+
+function openCart(){
+
+document
+.getElementById(
+"cart-overlay"
+)
+.classList.add(
+"active"
+);
+
+updateCart();
+
+}
+
+
+
+/* =====================================================
+   FECHAR CARRINHO
+===================================================== */
+
+function closeCart(){
+
+document
+.getElementById(
+"cart-overlay"
+)
+.classList.remove(
+"active"
+);
+
+}
+
+
+
+/* =====================================================
+   FECHAR CLICANDO FORA
+===================================================== */
+
+document
+.getElementById(
+"cart-overlay"
+)
+.addEventListener(
+"click",
+function(event){
+
+if(
+event.target === this
+){
+
+closeCart();
+
+}
+
+}
+);
+
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+updateCart();
+
+</script>
+
+</body>
+
+</html>

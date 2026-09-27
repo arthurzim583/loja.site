@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Godzilla Ultima | Kaiju Collect</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#05070b;
+    color:white;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:82px;
+
+    background:rgba(3,6,10,.97);
+
+    border-bottom:1px solid #123b63;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 55px;
+
+    z-index:1000;
+
+    backdrop-filter:blur(12px);
+}
+
+
+/* LOGO */
+
+.logo-link{
+
+    display:flex;
+    align-items:center;
+}
+
+.logo{
+
+    width:120px;
+    height:70px;
+
+    object-fit:contain;
+
+    transition:.3s;
+}
+
+.logo:hover{
+
+    transform:scale(1.05);
+}
+
+
+/* MENU */
+
+nav{
+
+    margin-left:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:30px;
+}
+
+nav a{
+
+    color:#dceeff;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+nav a:hover{
+
+    color:#00aaff;
+
+    text-shadow:
+        0 0 12px #008cff;
+}
+
+
+/* =====================================================
+   DROPDOWN
+===================================================== */
+
+.dropdown{
+
+    position:relative;
+}
+
+.dropdown-menu{
+
+    position:absolute;
+
+    top:30px;
+    left:-20px;
+
+    width:210px;
+
+    background:#070c13;
+
+    border:1px solid #123b63;
+
+    padding:8px 0;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:.25s;
+}
+
+.dropdown:hover .dropdown-menu{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+}
+
+.dropdown-menu a{
+
+    display:block;
+
+    padding:12px 18px;
+
+    font-size:14px;
+}
+
+.dropdown-menu a:hover{
+
+    background:#0b2943;
+}
+
+
+/* =====================================================
+   CARRINHO
+===================================================== */
+
+.cart-button{
+
+    margin-left:30px;
+
+    padding:10px 17px;
+
+    border:1px solid #008cff;
+
+    background:transparent;
+
+    color:white;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.cart-button:hover{
+
+    background:#008cff;
+
+    box-shadow:
+        0 0 20px rgba(0,140,255,.5);
+}
+
+#cart-count{
+
+    background:#008cff;
+
+    border-radius:50%;
+
+    padding:3px 7px;
+
+    margin-left:5px;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   PÁGINA DO PRODUTO
+===================================================== */
+
+.product-page{
+
+    min-height:100vh;
+
+    padding:
+        145px
+        8%
+        80px;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:70px;
+
+    align-items:center;
+}
+
+
+/* =====================================================
+   GALERIA
+===================================================== */
+
+.gallery{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+
+.main-image{
+
+    height:560px;
+
+    background:
+
+        radial-gradient(
+            circle,
+            #11283e,
+            #05080d 72%
+        );
+
+    border:1px solid #172f47;
+
+    border-radius:6px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.main-image img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    transition:.3s;
+}
+
+
+/* MINIATURAS */
+
+.thumbnails{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.thumbnail{
+
+    height:110px;
+
+    background:#080d14;
+
+    border:1px solid #172f47;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.thumbnail:hover{
+
+    border-color:#008cff;
+
+    transform:translateY(-3px);
+}
+
+.thumbnail.active{
+
+    border-color:#008cff;
+
+    box-shadow:
+        0 0 15px
+        rgba(0,140,255,.3);
+}
+
+.thumbnail img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+}
+
+
+/* =====================================================
+   INFORMAÇÕES
+===================================================== */
+
+.product-info{
+
+    max-width:600px;
+}
+
+.brand{
+
+    color:#008cff;
+
+    font-size:13px;
+
+    letter-spacing:3px;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+}
+
+.product-info h1{
+
+    font-size:48px;
+
+    line-height:1.1;
+
+    margin-bottom:22px;
+}
+
+.description{
+
+    color:#9aaaba;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    margin-bottom:28px;
+}
+
+
+/* PREÇO */
+
+.product-price{
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+}
+
+.installments{
+
+    color:#7d8fa1;
+
+    font-size:14px;
+
+    margin-bottom:25px;
+}
+
+
+/* ESTOQUE */
+
+.stock{
+
+    color:#36d47b;
+
+    font-size:14px;
+
+    margin-bottom:25px;
+}
+
+
+/* =====================================================
+   QUANTIDADE
+===================================================== */
+
+.quantity-title{
+
+    color:#9aaaba;
+
+    font-size:14px;
+
+    margin-bottom:10px;
+}
+
+.quantity{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:22px;
+}
+
+.quantity button{
+
+    width:40px;
+    height:40px;
+
+    background:#101a25;
+
+    border:1px solid #20364c;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:.2s;
+}
+
+.quantity button:hover{
+
+    background:#008cff;
+
+    border-color:#008cff;
+}
+
+.quantity span{
+
+    min-width:30px;
+
+    text-align:center;
+
+    font-size:18px;
+}
+
+
+/* =====================================================
+   BOTÃO ADICIONAR
+===================================================== */
+
+.add-button{
+
+    width:100%;
+
+    padding:17px;
+
+    background:#008cff;
+
+    color:white;
+
+    border:none;
+
+    border-radius:4px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.add-button:hover{
+
+    background:#00aaff;
+
+    box-shadow:
+        0 0 25px
+        rgba(0,140,255,.4);
+
+    transform:translateY(-2px);
+}
+
+
+/* =====================================================
+   VOLTAR
+===================================================== */
+
+.back{
+
+    display:inline-block;
+
+    margin-top:22px;
+
+    color:#6f8499;
+
+    text-decoration:none;
+
+    transition:.3s;
+}
+
+.back:hover{
+
+    color:#008cff;
+}
+
+
+/* =====================================================
+   DETALHES
+===================================================== */
+
+.product-details{
+
+    margin-top:35px;
+
+    padding-top:25px;
+
+    border-top:1px solid #17283a;
+}
+
+.product-details div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:9px 0;
+
+    color:#8394a5;
+
+    font-size:14px;
+}
+
+.product-details strong{
+
+    color:#dceeff;
+}
+
+
+/* =====================================================
+   CARRINHO LATERAL
+===================================================== */
+
+.cart-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    display:none;
+
+    justify-content:flex-end;
+
+    z-index:2000;
+}
+
+.cart-overlay.active{
+
+    display:flex;
+}
+
+.cart{
+
+    width:430px;
+
+    max-width:100%;
+
+    height:100%;
+
+    background:#070b11;
+
+    border-left:1px solid #123b63;
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    animation:
+        cartOpen .25s ease;
+}
+
+
+@keyframes cartOpen{
+
+    from{
+        transform:translateX(100%);
+    }
+
+    to{
+        transform:translateX(0);
+    }
+}
+
+
+/* CABEÇALHO */
+
+.cart-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding-bottom:20px;
+
+    border-bottom:1px solid #17283a;
+}
+
+.cart-header h2{
+
+    font-size:22px;
+}
+
+.cart-header button{
+
+    background:transparent;
+
+    border:none;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+
+/* ITENS */
+
+#cart-items{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding-top:20px;
+}
+
+.empty-cart{
+
+    color:#718092;
+
+    text-align:center;
+
+    margin-top:40px;
+}
+
+.cart-item{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+    padding-bottom:15px;
+
+    border-bottom:1px solid #17283a;
+}
+
+.cart-item img{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:contain;
+
+    background:#0b1119;
+
+    border:1px solid #17283a;
+}
+
+.cart-item-info{
+
+    flex:1;
+}
+
+.cart-item-info h4{
+
+    font-size:14px;
+
+    line-height:1.4;
+
+    margin-bottom:8px;
+}
+
+.cart-item-info p{
+
+    color:#008cff;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+}
+
+
+/* QUANTIDADE DO CARRINHO */
+
+.cart-quantity{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.cart-quantity button{
+
+    width:25px;
+
+    height:25px;
+
+    background:#101a25;
+
+    border:1px solid #20364c;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.cart-quantity span{
+
+    min-width:20px;
+
+    text-align:center;
+}
+
+
+/* REMOVER */
+
+.remove-item{
+
+    background:transparent;
+
+    border:none;
+
+    color:#ff4d4d;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    height:25px;
+}
+
+
+/* RODAPÉ */
+
+.cart-footer{
+
+    border-top:1px solid #17283a;
+
+    padding-top:20px;
+}
+
+.cart-total{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+
+    font-size:18px;
+}
+
+.cart-total strong{
+
+    color:#008cff;
+}
+
+.checkout-button{
+
+    width:100%;
+
+    padding:15px;
+
+    background:#008cff;
+
+    color:white;
+
+    border:none;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.checkout-button:hover{
+
+    background:#00aaff;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media(max-width:950px){
+
+    header{
+
+        padding:0 25px;
+    }
+
+    .product-page{
+
+        grid-template-columns:1fr;
+
+        gap:45px;
+
+        padding-top:125px;
+    }
+
+    .product-info{
+
+        max-width:none;
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    nav{
+
+        display:none;
+    }
+
+    .cart-button{
+
+        margin-left:auto;
+    }
+
+    .product-page{
+
+        padding:
+            120px
+            20px
+            60px;
+    }
+
+    .main-image{
+
+        height:420px;
+    }
+
+    .product-info h1{
+
+        font-size:38px;
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    .logo{
+
+        width:100px;
+    }
+
+    .main-image{
+
+        height:350px;
+    }
+
+    .thumbnail{
+
+        height:85px;
+    }
+
+    .product-info h1{
+
+        font-size:32px;
+    }
+
+    .product-price{
+
+        font-size:28px;
+    }
+
+    .cart{
+
+        width:100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header>
+
+
+<a
+href="index.html"
+class="logo-link">
+
+<img
+src="images/logo.png"
+alt="Kaiju Collect"
+class="logo">
+
+</a>
+
+
+<nav>
+
+<a href="index.html">
+Início
+</a>
+
+
+<div class="dropdown">
+
+<a href="#">
+Marcas ▾
+</a>
+
+
+<div class="dropdown-menu">
+
+<a href="#">
+Hot Toys
+</a>
+
+<a href="#">
+Bandai
+</a>
+
+<a href="#">
+NECA
+</a>
+
+<a href="#">
+McFarlane Toys
+</a>
+
+<a href="#">
+Mezco
+</a>
+
+</div>
+
+</div>
+
+
+<a href="index.html#destaques">
+Destaques
+</a>
+
+
+<a href="index.html#sobre">
+Sobre
+</a>
+
+</nav>
+
+
+<button
+class="cart-button"
+onclick="openCart()">
+
+🛒 Carrinho
+
+<span id="cart-count">
+0
+</span>
+
+</button>
+
+</header>
+
+
+
+<!-- =====================================================
+     PRODUTO
+===================================================== -->
+
+<main class="product-page">
+
+
+<!-- GALERIA -->
+
+<section class="gallery">
+
+
+<div class="main-image">
+
+<img
+id="mainImage"
+src="images/godzilla-1.jpg"
+alt="Godzilla Ultima S.H.MonsterArts">
+
+</div>
+
+
+<div class="thumbnails">
+
+
+<div
+class="thumbnail active"
+onclick="changeImage(
+'images/godzilla-1.jpg',
+this
+)">
+
+<img
+src="images/godzilla-1.jpg"
+alt="Godzilla Ultima imagem 1">
+
+</div>
+
+
+<div
+class="thumbnail"
+onclick="changeImage(
+'images/godzilla-2.jpg',
+this
+)">
+
+<img
+src="images/godzilla-2.jpg"
+alt="Godzilla Ultima imagem 2">
+
+</div>
+
+
+<div
+class="thumbnail"
+onclick="changeImage(
+'images/godzilla-3.jpg',
+this
+)">
+
+<img
+src="images/godzilla-3.jpg"
+alt="Godzilla Ultima imagem 3">
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     INFORMAÇÕES
+===================================================== -->
+
+<section class="product-info">
+
+
+<div class="brand">
+
+BANDAI /
+S.H.MONSTERARTS
+
+</div>
+
+
+<h1>
+
+Godzilla Ultima
+
+</h1>
+
+
+<p class="description">
+
+Action figure do Godzilla Ultima,
+baseado no design apresentado em
+Godzilla Singular Point. A peça possui
+alto nível de detalhes e foi desenvolvida
+para colecionadores e fãs da franquia.
+
+</p>
+
+
+<div class="product-price">
+
+R$ 899,90
+
+</div>
+
+
+<div class="installments">
+
+Em até 10x sem juros
+
+</div>
+
+
+<div class="stock">
+
+● Em estoque
+
+</div>
+
+
+<div class="quantity-title">
+
+Quantidade
+
+</div>
+
+
+<div class="quantity">
+
+
+<button onclick="decreaseQuantity()">
+
+−
+
+</button>
+
+
+<span id="quantity">
+
+1
+
+</span>
+
+
+<button onclick="increaseQuantity()">
+
++
+
+</button>
+
+
+</div>
+
+
+<button
+class="add-button"
+onclick="addProductToCart()">
+
+ADICIONAR AO CARRINHO
+
+</button>
+
+
+<a
+href="index.html"
+class="back">
+
+← Voltar para a loja
+
+</a>
+
+
+<div class="product-details">
+
+
+<div>
+
+<span>
+Fabricante
+</span>
+
+<strong>
+Bandai
+</strong>
+
+</div>
+
+
+<div>
+
+<span>
+Linha
+</span>
+
+<strong>
+S.H.MonsterArts
+</strong>
+
+</div>
+
+
+<div>
+
+<span>
+Personagem
+</span>
+
+<strong>
+Godzilla Ultima
+</strong>
+
+</div>
+
+
+<div>
+
+<span>
+Origem
+</span>
+
+<strong>
+Godzilla Singular Point
+</strong>
+
+</div>
+
+
+<div>
+
+<span>
+Categoria
+</span>
+
+<strong>
+Action Figure
+</strong>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+</main>
+
+
+
+<!-- =====================================================
+     CARRINHO
+===================================================== -->
+
+<div
+id="cartOverlay"
+class="cart-overlay">
+
+
+<div class="cart">
+
+
+<div class="cart-header">
+
+<h2>
+Seu carrinho
+</h2>
+
+
+<button
+onclick="closeCart()">
+
+✕
+
+</button>
+
+</div>
+
+
+<div id="cart-items">
+
+<p class="empty-cart">
+
+Seu carrinho está vazio.
+
+</p>
+
+</div>
+
+
+<div class="cart-footer">
+
+
+<div class="cart-total">
+
+<span>
+Total:
+</span>
+
+
+<strong id="cart-total">
+
+R$ 0,00
+
+</strong>
+
+</div>
+
+
+<button
+class="checkout-button"
+onclick="checkout()">
+
+FINALIZAR COMPRA
+
+</button>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   PRODUTO
+===================================================== */
+
+const product = {
+
+    name:
+    "Godzilla Ultima",
+
+    price:
+    899.90,
+
+    image:
+    "images/godzilla-1.jpg"
+
+};
+
+
+
+/* =====================================================
+   CARRINHO
+===================================================== */
+
+let cart =
+JSON.parse(
+localStorage.getItem(
+"kaijuCart"
+)
+) || [];
+
+
+
+/* =====================================================
+   QUANTIDADE
+===================================================== */
+
+let quantity = 1;
+
+
+
+function increaseQuantity(){
+
+    quantity++;
+
+    document.getElementById(
+        "quantity"
+    ).textContent =
+        quantity;
+
+}
+
+
+
+function decreaseQuantity(){
+
+    if(quantity > 1){
+
+        quantity--;
+
+    }
+
+    document.getElementById(
+        "quantity"
+    ).textContent =
+        quantity;
+
+}
+
+
+
+/* =====================================================
+   GALERIA
+===================================================== */
+
+function changeImage(
+    image,
+    element
+){
+
+    document.getElementById(
+        "mainImage"
+    ).src = image;
+
+
+    document
+        .querySelectorAll(
+            ".thumbnail"
+        )
+        .forEach(
+            thumbnail => {
+
+                thumbnail.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    element.classList.add(
+        "active"
+    );
+
+}
+
+
+
+/* =====================================================
+   SALVAR CARRINHO
+===================================================== */
+
+function saveCart(){
+
+    localStorage.setItem(
+        "kaijuCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+
+/* =====================================================
+   ADICIONAR PRODUTO
+===================================================== */
+
+function addProductToCart(){
+
+    const existing =
+        cart.find(
+            item =>
+            item.name ===
+            product.name
+        );
+
+
+    if(existing){
+
+        existing.quantity +=
+            quantity;
+
+    }
+    else{
+
+        cart.push({
+
+            name:
+                product.name,
+
+            price:
+                product.price,
+
+            image:
+                product.image,
+
+            quantity:
+                quantity
+
+        });
+
+    }
+
+
+    saveCart();
+
+    updateCart();
+
+    openCart();
+
+}
+
+
+
+/* =====================================================
+   ATUALIZAR CARRINHO
+===================================================== */
+
+function updateCart(){
+
+    const items =
+        document.getElementById(
+            "cart-items"
+        );
+
+
+    const count =
+        document.getElementById(
+            "cart-count"
+        );
+
+
+    const totalElement =
+        document.getElementById(
+            "cart-total"
+        );
+
+
+    items.innerHTML = "";
+
+
+    let total = 0;
+
+    let totalItems = 0;
+
+
+    if(cart.length === 0){
+
+        items.innerHTML = `
+
+        <p class="empty-cart">
+
+        Seu carrinho está vazio.
+
+        </p>
+
+        `;
+
+    }
+
+
+    cart.forEach(
+        (item,index) => {
+
+            total +=
+                item.price *
+                item.quantity;
+
+
+            totalItems +=
+                item.quantity;
+
+
+            const cartItem =
+                document.createElement(
+                    "div"
+                );
+
+
+            cartItem.className =
+                "cart-item";
+
+
+            cartItem.innerHTML = `
+
+            <img
+                src="${item.image}"
+                alt="${item.name}"
+            >
+
+
+            <div class="cart-item-info">
+
+                <h4>
+                    ${item.name}
+                </h4>
+
+
+                <p>
+
+                    R$
+                    ${item.price
+                        .toFixed(2)
+                        .replace(".", ",")}
+
+                </p>
+
+
+                <div
+                    class="cart-quantity">
+
+
+                    <button
+                        onclick="
+                        decreaseCartQuantity(
+                            ${index}
+                        )">
+
+                        −
+
+                    </button>
+
+
+                    <span>
+
+                        ${item.quantity}
+
+                    </span>
+
+
+                    <button
+                        onclick="
+                        increaseCartQuantity(
+                            ${index}
+                        )">
+
+                        +
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="remove-item"
+                onclick="
+                removeCartItem(
+                    ${index}
+                )">
+
+                ✕
+
+            </button>
+
+            `;
+
+
+            items.appendChild(
+                cartItem
+            );
+
+        }
+    );
+
+
+    count.textContent =
+        totalItems;
+
+
+    totalElement.textContent =
+        "R$ " +
+        total
+            .toFixed(2)
+            .replace(".", ",");
+
+}
+
+
+
+/* =====================================================
+   AUMENTAR ITEM
+===================================================== */
+
+function increaseCartQuantity(
+    index
+){
+
+    cart[index].quantity++;
+
+    saveCart();
+
+    updateCart();
+
+}
+
+
+
+/* =====================================================
+   DIMINUIR ITEM
+===================================================== */
+
+function decreaseCartQuantity(
+    index
+){
+
+    if(
+        cart[index].quantity > 1
+    ){
+
+        cart[index].quantity--;
+
+    }
+    else{
+
+        cart.splice(
+            index,
+            1
+        );
+
+    }
+
+
+    saveCart();
+
+    updateCart();
+
+}
+
+
+
+/* =====================================================
+   REMOVER
+===================================================== */
+
+function removeCartItem(
+    index
+){
+
+    cart.splice(
+        index,
+        1
+    );
+
+
+    saveCart();
+
+    updateCart();
+
+}
+
+
+
+/* =====================================================
+   ABRIR CARRINHO
+===================================================== */
+
+function openCart(){
+
+    document
+        .getElementById(
+            "cartOverlay"
+        )
+        .classList.add(
+            "active"
+        );
+
+
+    updateCart();
+
+}
+
+
+
+/* =====================================================
+   FECHAR CARRINHO
+===================================================== */
+
+function closeCart(){
+
+    document
+        .getElementById(
+            "cartOverlay"
+        )
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+
+/* =====================================================
+   CLICAR FORA DO CARRINHO
+===================================================== */
+
+document
+    .getElementById(
+        "cartOverlay"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+
+                closeCart();
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   FINALIZAR COMPRA
+===================================================== */
+
+function checkout(){
+
+    if(cart.length === 0){
+
+        alert(
+            "Seu carrinho está vazio."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "O sistema de checkout será adicionado em breve!"
+    );
+
+}
+
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+updateCart();
+
+</script>
+
+</body>
+
+</html>
