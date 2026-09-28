@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultraman — Ultra Hero Series | Kaiju Collect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        header {
+            background: #111;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e63946;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e63946;
+        }
+
+        .cart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .product-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+
+        .thumbnail-list {
+            display: flex;
+            gap: 15px;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 2px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .thumbnail:hover {
+            border-color: #e63946;
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .product-brand {
+            color: #e63946;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .product-title {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .product-description {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .product-price {
+            font-size: 32px;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .installments {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .stock {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .qty-btn:hover {
+            background: #e63946;
+        }
+
+        .qty-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            padding: 20px;
+            background: #e63946;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #c62828;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #e63946;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .product-specs {
+            margin-top: 40px;
+            padding: 30px;
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            color: #888;
+        }
+
+        .spec-value {
+            font-weight: bold;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100vh;
+            background: #1a1a1a;
+            border-left: 2px solid #e63946;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .cart-modal.active {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+        .cart-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #e63946;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #666;
+            padding: 40px 0;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-checkout {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.ibb.co/Fb4FgR19/1790599226.png" alt="Kaiju Collect" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="#">Marcas ▾</a></li>
+                <li><a href="index.html#destaques">Destaques</a></li>
+                <li><a href="index.html#sobre">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="cart" onclick="toggleCart()">🛒 Carrinho <span id="cart-count">0</span></div>
+    </header>
+
+    <div class="product-page">
+        <div class="product-gallery">
+            <img src="https://i.ibb.co/zH7rMkkT/images-q-tbn-ANd9-Gc-T8vywq-BH6-KR8-Wmh8-Bs-TNYc-Ff-Qhxv-CZBk6-HJjrmmn-Sho-XH6-Hu-Tr-DXSkl-Dw-s-10.jpg" alt="Ultraman Ultra Hero Series" class="main-image" id="main-image">
+            <div class="thumbnail-list">
+                <img src="https://i.ibb.co/zH7rMkkT/images-q-tbn-ANd9-Gc-T8vywq-BH6-KR8-Wmh8-Bs-TNYc-Ff-Qhxv-CZBk6-HJjrmmn-Sho-XH6-Hu-Tr-DXSkl-Dw-s-10.jpg" alt="Thumbnail 1" class="thumbnail" onclick="changeImage(this.src)">
+                <img src="https://i.ibb.co/BJqqbhX/11374618p.jpg">
+            </div>
+        </div>
+
+        <div class="product-details">
+            <div class="product-brand">BANDAI / ULTRA HERO SERIES</div>
+            <h1 class="product-title">Ultraman</h1>
+            <p class="product-description">Action figure do Ultraman da linha Ultra<br>Hero Series. Figura clássica do herói<br>gigante com design fiel ao original.</p>
+            <div class="product-price">R$ 299,90</div>
+            <div class="installments">Em até 10x sem juros</div>
+            <div class="stock">● Em estoque</div>
+            <div class="quantity-selector">
+                <span>Quantidade</span>
+                <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                <span class="qty-value" id="qty-value">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+            <button class="add-to-cart">ADICIONAR AO CARRINHO</button>
+            <a href="bandai.html" class="back-link">← Voltar para Bandai</a>
+        </div>
+    </div>
+
+    <div class="product-specs">
+        <div class="spec-row">
+            <span class="spec-label">Fabricante</span>
+            <span class="spec-value">Bandai</span>
+        </div>
+        <div class="spec-row">
+            <span class="spec-label">Linha</span>
+            <span class="spec-value">Ultra Hero Series</span>
+        </div>
+        <div class="spec-row">
+            <span class="spec-label">Personagem</span>
+            <span class="spec-value">Ultraman</span>
+        </div>
+        <div class="spec-row">
+            <span class="spec-label">Franquia</span>
+            <span class="spec-value">Ultraman</span>
+        </div>
+        <div class="spec-row">
+            <span class="spec-label">Categoria</span>
+            <span class="spec-value">Action Figure</span>
+        </div>
+    </div>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>Seu carrinho</h3>
+            <span class="cart-close" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-empty">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+        <div class="cart-total">
+            Total: R$ 0,00
+        </div>
+        <a href="#" class="cart-checkout">FINALIZAR COMPRA</a>
+    </div>
+
+    <script>
+        function changeImage(src) {
+            document.getElementById('main-image').src = src;
+        }
+
+        function changeQty(delta) {
+            const qtyElement = document.getElementById('qty-value');
+            let qty = parseInt(qtyElement.textContent);
+            qty = Math.max(1, qty + delta);
+            qtyElement.textContent = qty;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

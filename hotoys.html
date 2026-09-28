@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Toys | Kaiju Collect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        header {
+            background: #111;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e63946;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e63946;
+        }
+
+        .cart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .brand-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .brand-header h1 {
+            font-size: 48px;
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+
+        .brand-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .product-card:hover {
+            border-color: #e63946;
+            transform: translateY(-10px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-brand {
+            color: #e63946;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .product-btn:hover {
+            background: #c62828;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #e63946;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100vh;
+            background: #1a1a1a;
+            border-left: 2px solid #e63946;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .cart-modal.active {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+        .cart-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #e63946;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #666;
+            padding: 40px 0;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-checkout {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.ibb.co/Fb4FgR19/1790599226.png" alt="Kaiju Collect" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="#">Marcas ▾</a></li>
+                <li><a href="index.html#destaques">Destaques</a></li>
+                <li><a href="index.html#sobre">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="cart" onclick="toggleCart()">🛒 Carrinho <span id="cart-count">0</span></div>
+    </header>
+
+    <div class="brand-page">
+        <div class="brand-header">
+            <h1>Hot Toys</h1>
+            <p>Action figures premium com nível excepcional de detalhes e realismo.</p>
+        </div>
+
+        <div class="product-grid">
+            <a href="spiderman.html" class="product-card">
+                <img src="https://i.ibb.co/B5YZd4bD/hot-toys-marvel-spider-man-sixth-scale-figure-gallery-6a4e64842527e.avif" alt="Spider-Man Brand New Day">
+                <div class="product-info">
+                    <div class="product-brand">HOT TOYS</div>
+                    <div class="product-name">Spider-Man —<br>Brand New Day</div>
+                    <div class="product-price">R$ 1.499,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+        </div>
+
+        <a href="index.html" class="back-link">← Voltar para a loja</a>
+    </div>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>Seu carrinho</h3>
+            <span class="cart-close" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-empty">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+        <div class="cart-total">
+            Total: R$ 0,00
+        </div>
+        <a href="#" class="cart-checkout">FINALIZAR COMPRA</a>
+    </div>
+
+    <script>
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

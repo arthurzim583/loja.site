@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandai | Kaiju Collect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        header {
+            background: #111;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e63946;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e63946;
+        }
+
+        .cart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .brand-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .brand-header h1 {
+            font-size: 48px;
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+
+        .brand-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .product-card:hover {
+            border-color: #e63946;
+            transform: translateY(-10px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-brand {
+            color: #e63946;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .product-btn:hover {
+            background: #c62828;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #e63946;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100vh;
+            background: #1a1a1a;
+            border-left: 2px solid #e63946;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .cart-modal.active {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+        .cart-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #e63946;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #666;
+            padding: 40px 0;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-checkout {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.ibb.co/Fb4FgR19/1790599226.png" alt="Kaiju Collect" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="#">Marcas ▾</a></li>
+                <li><a href="index.html#destaques">Destaques</a></li>
+                <li><a href="index.html#sobre">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="cart" onclick="toggleCart()">🛒 Carrinho <span id="cart-count">0</span></div>
+    </header>
+
+    <div class="brand-page">
+        <div class="brand-header">
+            <h1>Bandai</h1>
+            <p>Figuras das linhas S.H.Figuarts, S.H.MonsterArts, Movie Monster Series, Ultra Hero Series e mais.</p>
+        </div>
+
+        <div class="product-grid">
+            <a href="goku.html" class="product-card">
+            <img src="https://i.ibb.co/F45DRtqh/6906143.jpg" >
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.FIGUARTS</div>
+                    <div class="product-name">Goku</div>
+                    <div class="product-price">R$ 459,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="gohan.html" class="product-card">
+                <img src="https://i.ibb.co/CKXBgHhX/71flg-ZI9-Uc-L-AC-UF350-350-QL80.jpg" alt="Gohan S.H.Figuarts">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.FIGUARTS</div>
+                    <div class="product-name">Gohan</div>
+                    <div class="product-price">R$ 449,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="sasuke.html" class="product-card">
+                <img src="https://i.ibb.co/p7HSTWm/61-Xm-Adwme3-L.jpg" alt="Sasuke Uchiha S.H.Figuarts">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.FIGUARTS</div>
+                    <div class="product-name">Sasuke Uchiha</div>
+                    <div class="product-price">R$ 469,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="madara.html" class="product-card">
+                <img src="https://i.ibb.co/v6HpVZBR/item-0000014160-kte23pj-A-03.jpg" alt="Madara Uchiha S.H.Figuarts">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.FIGUARTS</div>
+                    <div class="product-name">Madara Uchiha</div>
+                    <div class="product-price">R$ 489,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="tanjiro.html" class="product-card">
+                <img src="https://i.ibb.co/G43pMq1H/81-Kd-VC1-Wze-L.jpg" alt="Tanjiro Kamado S.H.Figuarts">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.FIGUARTS</div>
+                    <div class="product-name">Tanjiro Kamado —<br>Infinity Castle</div>
+                    <div class="product-price">R$ 429,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="godzilla2019.html" class="product-card">
+                <img src="https://i.ibb.co/6RX8vq2m/2019011092612.jpg" alt="Godzilla 2019 S.H.MonsterArts">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.MONSTERARTS</div>
+                    <div class="product-name">Godzilla (2019)</div>
+                    <div class="product-price">R$ 879,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mechagodzilla.html" class="product-card">
+                <img src="https://i.ibb.co/Lh6ByHy4/mechagodzilla-2021-final-battle-edition-tamashii-nations-godzilla-vs-kong-actionfigure-brasil-01-lar.jpg" alt="Mechagodzilla S.H.MonsterArts">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.MONSTERARTS</div>
+                    <div class="product-name">Mechagodzilla</div>
+                    <div class="product-price">R$ 949,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="godzilla1995.html" class="product-card">
+                <img src="https://i.ibb.co/1YbjYS5J/045557922634-1.jpg" alt="Godzilla 1995 Movie Monster Series">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / MOVIE MONSTER SERIES</div>
+                    <div class="product-name">Godzilla 1995</div>
+                    <div class="product-price">R$ 349,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="ultraman.html" class="product-card">
+                <img src="https://i.ibb.co/zH7rMkkT/images-q-tbn-ANd9-Gc-T8vywq-BH6-KR8-Wmh8-Bs-TNYc-Ff-Qhxv-CZBk6-HJjrmmn-Sho-XH6-Hu-Tr-DXSkl-Dw-s-10.jpg" alt="Ultraman Ultra Hero Series">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / ULTRA HERO SERIES</div>
+                    <div class="product-name">Ultraman</div>
+                    <div class="product-price">R$ 299,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="darthvader.html" class="product-card">
+                <img src="https://i.ibb.co/cKLYTVWz/7fe0e32429275826ca0004c8283b4549.jpg" alt="Darth Vader 1/12 Model Kit">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / 1/12 MODEL KIT</div>
+                    <div class="product-name">Darth Vader</div>
+                    <div class="product-price">R$ 599,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="ichigo.html" class="product-card">
+                <img src="https://i.ibb.co/vxMf2BdM/71ia689-OLs-L.jpg"  alt="Ichigo Kurosaki Anime Heroes">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / ANIME HEROES</div>
+                    <div class="product-name">Ichigo Kurosaki<br>(Bleach)</div>
+                    <div class="product-price">R$ 389,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="godzilla.html" class="product-card">
+                <img src="https://i.ibb.co/hFLRfTL3/images-q-tbn-ANd9-Gc-RHI0-Ycojx-ZN3-Ty-Xa-RKi-OCSm-BFb-Gf-Ip1-CBOXr-Hv-CBo-Cl7-Tdtq1ejtwl-Mgg-s-10.jpg" alt="Godzilla Ultima">
+                <div class="product-info">
+                    <div class="product-brand">BANDAI / S.H.MONSTERARTS</div>
+                    <div class="product-name">Godzilla Ultima</div>
+                    <div class="product-price">R$ 899,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+        </div>
+
+        <a href="index.html" class="back-link">← Voltar para a loja</a>
+    </div>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>Seu carrinho</h3>
+            <span class="cart-close" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-empty">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+        <div class="cart-total">
+            Total: R$ 0,00
+        </div>
+        <a href="#" class="cart-checkout">FINALIZAR COMPRA</a>
+    </div>
+
+    <script>
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
