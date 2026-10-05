@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mezco | Kaiju Collect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        header {
+            background: #111;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e63946;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e63946;
+        }
+
+        .cart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .brand-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .brand-header h1 {
+            font-size: 48px;
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+
+        .brand-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .product-card:hover {
+            border-color: #e63946;
+            transform: translateY(-10px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-brand {
+            color: #e63946;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .product-btn:hover {
+            background: #c62828;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #e63946;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100vh;
+            background: #1a1a1a;
+            border-left: 2px solid #e63946;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .cart-modal.active {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+        .cart-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #e63946;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #666;
+            padding: 40px 0;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-checkout {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.ibb.co/Fb4FgR19/1790599226.png" alt="Kaiju Collect" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="#">Marcas ▾</a></li>
+                <li><a href="index.html#destaques">Destaques</a></li>
+                <li><a href="index.html#sobre">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="cart" onclick="toggleCart()">🛒 Carrinho <span id="cart-count">0</span></div>
+    </header>
+
+    <div class="brand-page">
+        <div class="brand-header">
+            <h1>Mezco</h1>
+            <p>Figuras premium das linhas One:12 Collective e Living Dead Dolls, com design detalhado e acabamento de alta qualidade para colecionadores exigentes.</p>
+        </div>
+
+        <div class="product-grid">
+            <a href="mezco-batman.html" class="product-card">
+                <img src="https://i.ibb.co/VpmT31YD/D-NQ-NP-639228-MLB106677200981-022026-O.webp" alt="One:12 Collective Batman">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / ONE:12 COLLECTIVE</div>
+                    <div class="product-name">Batman<br>One:12 Collective</div>
+                    <div class="product-price">R$ 649,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-pinhead.html" class="product-card">
+                <img src="https://i.ibb.co/qMt9tWNf/images-q-tbn-ANd9-Gc-R7-KZz2r-Cwz-J4-AITp-Rmr-vja-Tm-ZT7w8-Dd-KLKX5-Lf-Qt-Wkg-s-10.jpg" alt="Living Dead Dolls Pinhead">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / LIVING DEAD DOLLS</div>
+                    <div class="product-name">Pinhead<br>Living Dead Dolls</div>
+                    <div class="product-price">R$ 299,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-johnwick.html" class="product-card">
+                <img src="https://i.ibb.co/3KxMqJvR/mezco-johnwick.jpg" alt="One:12 Collective John Wick">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / ONE:12 COLLECTIVE</div>
+                    <div class="product-name">John Wick<br>One:12 Collective</div>
+                    <div class="product-price">R$ 599,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-freddy.html" class="product-card">
+                <img src="https://i.ibb.co/4KxMqJvR/mezco-freddy.jpg" alt="Living Dead Dolls Freddy Krueger">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / LIVING DEAD DOLLS</div>
+                    <div class="product-name">Freddy Krueger<br>Living Dead Dolls</div>
+                    <div class="product-price">R$ 319,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-wolverine.html" class="product-card">
+                <img src="https://i.ibb.co/5KxMqJvR/mezco-wolverine.jpg" alt="One:12 Collective Wolverine">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / ONE:12 COLLECTIVE</div>
+                    <div class="product-name">Wolverine<br>One:12 Collective</div>
+                    <div class="product-price">R$ 629,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-jason.html" class="product-card">
+                <img src="https://i.ibb.co/6KxMqJvR/mezco-jason.jpg" alt="Living Dead Dolls Jason Voorhees">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / LIVING DEAD DOLLS</div>
+                    <div class="product-name">Jason Voorhees<br>Living Dead Dolls</div>
+                    <div class="product-price">R$ 309,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-deadpool.html" class="product-card">
+                <img src="https://i.ibb.co/7KxMqJvR/mezco-deadpool.jpg" alt="One:12 Collective Deadpool">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / ONE:12 COLLECTIVE</div>
+                    <div class="product-name">Deadpool<br>One:12 Collective</div>
+                    <div class="product-price">R$ 579,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-chucky.html" class="product-card">
+                <img src="https://i.ibb.co/8KxMqJvR/mezco-chucky.jpg" alt="Living Dead Dolls Chucky">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / LIVING DEAD DOLLS</div>
+                    <div class="product-name">Chucky<br>Living Dead Dolls</div>
+                    <div class="product-price">R$ 289,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-punisher.html" class="product-card">
+                <img src="https://i.ibb.co/9KxMqJvR/mezco-punisher.jpg" alt="One:12 Collective Punisher">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / ONE:12 COLLECTIVE</div>
+                    <div class="product-name">Punisher<br>One:12 Collective</div>
+                    <div class="product-price">R$ 619,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="mezco-beetlejuice.html" class="product-card">
+                <img src="https://i.ibb.co/10KxMqJvR/mezco-beetlejuice.jpg" alt="Living Dead Dolls Beetlejuice">
+                <div class="product-info">
+                    <div class="product-brand">MEZCO / LIVING DEAD DOLLS</div>
+                    <div class="product-name">Beetlejuice<br>Living Dead Dolls</div>
+                    <div class="product-price">R$ 329,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+        </div>
+
+        <a href="index.html" class="back-link">← Voltar para a loja</a>
+    </div>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>Seu carrinho</h3>
+            <span class="cart-close" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-empty">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+        <div class="cart-total">
+            Total: R$ 0,00
+        </div>
+        <a href="#" class="cart-checkout">FINALIZAR COMPRA</a>
+    </div>
+
+    <script>
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

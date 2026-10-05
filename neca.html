@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NECA | Kaiju Collect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        header {
+            background: #111;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e63946;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e63946;
+        }
+
+        .cart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .brand-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .brand-header h1 {
+            font-size: 48px;
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+
+        .brand-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .product-card:hover {
+            border-color: #e63946;
+            transform: translateY(-10px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-brand {
+            color: #e63946;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .product-btn:hover {
+            background: #c62828;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #e63946;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100vh;
+            background: #1a1a1a;
+            border-left: 2px solid #e63946;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .cart-modal.active {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+        .cart-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #e63946;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #666;
+            padding: 40px 0;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-checkout {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #e63946;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.ibb.co/Fb4FgR19/1790599226.png" alt="Kaiju Collect" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="#">Marcas ▾</a></li>
+                <li><a href="index.html#destaques">Destaques</a></li>
+                <li><a href="index.html#sobre">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="cart" onclick="toggleCart()"> Carrinho <span id="cart-count">0</span></div>
+    </header>
+
+    <div class="brand-page">
+        <div class="brand-header">
+            <h1>NECA</h1>
+            <p>Figuras de ação detalhadas focadas em filmes cult, terror, ficção científica e clássicos do cinema, com as aclamadas linhas Ultimate e Classic.</p>
+        </div>
+
+        <div class="product-grid">
+            <a href="predator.html" class="product-card">
+                <img src="https://i.ibb.co/PsjxHZBx/D-NQ-NP-781358-MLB100002748132-122025-O-boneco-predador-neca-samurai-hunting-grounds-alien-vs-wolf.webp" alt="Samurai Predator">
+                <div class="product-info">
+                    <div class="product-brand">NECA / PREDATOR</div>
+                    <div class="product-name">Samurai<br>Predator</div>
+                    <div class="product-price">R$ 549,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="classicxenomorph.html" class="product-card">
+                <img src="https://i.ibb.co/Y7q2yJpq/11178168.jpg"  alt="Classic Xenomorph">
+                <div class="product-info">
+                    <div class="product-brand">NECA / ALIEN</div>
+                    <div class="product-name">Classic<br>Xenomorph</div>
+                    <div class="product-price">R$ 389,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="ultimatet800.html" class="product-card">
+                <img src="https://i.ibb.co/60R6LdQn/D-NQ-NP-626218-CBT83090064263-032025-O.webp" alt="Ultimate T-800">
+                <div class="product-info">
+                    <div class="product-brand">NECA / TERMINATOR</div>
+                    <div class="product-name">Ultimate<br>T-800 Endoskeleton</div>
+                    <div class="product-price">R$ 429,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="godzillaneca.html" class="product-card">
+                <img src="https://i.ibb.co/hJFtpL87/D-NQ-NP-736917-MCO107163450726-022026-O.webp" alt="Godzilla 2014">
+                <div class="product-info">
+                    <div class="product-brand">NECA / GODZILLA</div>
+                    <div class="product-name">Godzilla<br>2014</div>
+                    <div class="product-price">R$ 499,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="raphael.html" class="product-card">
+                <img src="https://i.ibb.co/JRRqb0VB/71j1p4uqmh-L.jpg" alt="TMNT Raphael">
+                <div class="product-info">
+                    <div class="product-brand">NECA / TMNT</div>
+                    <div class="product-name">Ultimate<br>Raphael (TMNT)</div>
+                    <div class="product-price">R$ 359,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="classicpredator.html" class="product-card">
+                <img src="https://i.ibb.co/RM1XfG9/Ultimate-JH3.jpg" alt="Classic Predator">
+                <div class="product-info">
+                    <div class="product-brand">NECA / PREDATOR</div>
+                    <div class="product-name">Classic<br>Predator (1987)</div>
+                    <div class="product-price">R$ 479,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="gremlin.html" class="product-card">
+                <img src="https://i.ibb.co/35nFv919/images-q-tbn-ANd9-Gc-Qa9h-Cgv-FQp-Rm-J07lg-Ii-RZSw-Id2t-Um-6-Ek-Mm-R2wl6z-Ig-NA4-AM-S3-p9-Z4-s-10.jpg" alt="Ultimate Gremlin">
+                <div class="product-info">
+                    <div class="product-brand">NECA / GREMLINS</div>
+                    <div class="product-name">Ultimate<br>Stripe (Gremlins)</div>
+                    <div class="product-price">R$ 329,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="macready.html" class="product-card">
+        <img src="https://i.ibb.co/dJMfMkXw/818lt-FFPmf-L.jpg"  alt="Ultimate MacReady">
+                <div class="product-info">
+                    <div class="product-brand">NECA / THE THING</div>
+                    <div class="product-name">Ultimate<br>MacReady</div>
+                    <div class="product-price">R$ 399,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="johnwick.html" class="product-card">
+                <img src="https://i.ibb.co/rRdSNxJB/D-Q-NP-2-X-932633-MLB88737768062-082025-P.webp" alt="John Wick">
+                <div class="product-info">
+                    <div class="product-brand">NECA / JOHN WICK</div>
+                    <div class="product-name">John Wick<br>Chapter 3</div>
+                    <div class="product-price">R$ 369,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+
+            <a href="victorcrowley.html" class="product-card">
+                <img src="https://i.ibb.co/XxyNwXmR/190020-0-a4588b5d-31d3-417b-ae8a-ac3ce3b5472b.jpg" alt="Victor Crowley">
+                <div class="product-info">
+                    <div class="product-brand">NECA / HATCHET</div>
+                    <div class="product-name">Ultimate<br>Victor Crowley</div>
+                    <div class="product-price">R$ 419,90</div>
+                    <span class="product-btn">ADICIONAR AO CARRINHO</span>
+                </div>
+            </a>
+        </div>
+
+        <a href="index.html" class="back-link">← Voltar para a loja</a>
+    </div>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>Seu carrinho</h3>
+            <span class="cart-close" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-empty">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+        <div class="cart-total">
+            Total: R$ 0,00
+        </div>
+        <a href="#" class="cart-checkout">FINALIZAR COMPRA</a>
+    </div>
+
+    <script>
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
