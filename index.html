@@ -104,17 +104,24 @@
         }
 
         .brand-item {
+            display: inline-block;
             padding: 20px 40px;
             background: #1a1a1a;
             border: 2px solid #333;
             border-radius: 10px;
             font-weight: bold;
             transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            min-width: 180px;
+            text-align: center;
         }
 
         .brand-item:hover {
             border-color: #e63946;
             transform: translateY(-5px);
+            background: #e63946;
         }
 
         .featured {
@@ -230,6 +237,22 @@
             border-top: 2px solid #e63946;
         }
 
+        .footer-social {
+            margin-bottom: 20px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #e63946;
+        }
+
         .cart-modal {
             display: none;
             position: fixed;
@@ -314,11 +337,11 @@
         <h2>Explore por marca</h2>
         <p style="margin-bottom: 40px; color: #ccc;">Encontre figuras das maiores fabricantes.</p>
         <div class="brand-list">
-            <div class="brand-item">Hot Toys</div>
-            <div class="brand-item">Bandai</div>
-            <div class="brand-item">NECA</div>
-            <div class="brand-item">McFarlane Toys</div>
-            <div class="brand-item">Mezco</div>
+            <a href="_hotoys.html" class="brand-item">Hot Toys</a>
+            <a href="bandai.html" class="brand-item">Bandai</a>
+            <a href="neca.html" class="brand-item">NECA</a>
+            <a href="mcfarlane.html" class="brand-item">McFarlane Toys</a>
+            <a href="mezco.html" class="brand-item">Mezco</a>
         </div>
     </section>
 
@@ -375,6 +398,9 @@
     </section>
 
     <footer>
+        <div class="footer-social">
+            <a href="https://www.instagram.com/kaijucollect" target="_blank">📸 Siga-nos no Instagram</a>
+        </div>
         <p>© 2026 KaijuCollect</p>
         <p>Colecione. Exiba. Domine.</p>
     </footer>
