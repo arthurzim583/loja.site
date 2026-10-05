@@ -17,6 +17,30 @@
             color: #fff;
         }
 
+        /* Top Bar para Instagram */
+        .top-bar {
+            background: #0a0a0a;
+            border-bottom: 1px solid #333;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .top-bar a {
+            color: #e63946;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-bar a:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
         header {
             background: #111;
             padding: 20px;
@@ -28,6 +52,10 @@
 
         .logo {
             height: 50px;
+        }
+
+        nav {
+            position: relative;
         }
 
         nav ul {
@@ -45,6 +73,57 @@
 
         nav a:hover {
             color: #e63946;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1a1a1a;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border: 2px solid #e63946;
+            border-radius: 10px;
+            z-index: 1000;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .dropdown-content a:hover {
+            background: #e63946;
+            border-left-color: #fff;
+            padding-left: 25px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cart {
@@ -237,22 +316,6 @@
             border-top: 2px solid #e63946;
         }
 
-        .footer-social {
-            margin-bottom: 20px;
-        }
-
-        .footer-social a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .footer-social a:hover {
-            color: #e63946;
-        }
-
         .cart-modal {
             display: none;
             position: fixed;
@@ -314,12 +377,28 @@
     </style>
 </head>
 <body>
+    <!-- Top Bar com Instagram -->
+    <div class="top-bar">
+        <a href="https://www.instagram.com/kaijucollect" target="_blank">
+            📸 Siga-nos no Instagram @kaijucollect
+        </a>
+    </div>
+
     <header>
         <img src="https://i.ibb.co/Fb4FgR19/1790599226.png" alt="Kaiju Collect" class="logo">
         <nav>
             <ul>
                 <li><a href="index.html">Início</a></li>
-                <li><a href="#">Marcas ▾</a></li>
+                <li class="dropdown">
+                    <a href="#">Marcas ▾</a>
+                    <div class="dropdown-content">
+                        <a href="_hotoys.html">Hot Toys</a>
+                        <a href="bandai.html">Bandai</a>
+                        <a href="neca.html">NECA</a>
+                        <a href="mcfarlane.html">McFarlane Toys</a>
+                        <a href="mezco.html">Mezco</a>
+                    </div>
+                </li>
                 <li><a href="#destaques">Destaques</a></li>
                 <li><a href="#sobre">Sobre</a></li>
             </ul>
@@ -398,9 +477,6 @@
     </section>
 
     <footer>
-        <div class="footer-social">
-            <a href="https://www.instagram.com/kaijucollect" target="_blank">📸 Siga-nos no Instagram</a>
-        </div>
         <p>© 2026 KaijuCollect</p>
         <p>Colecione. Exiba. Domine.</p>
     </footer>
